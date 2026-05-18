@@ -1,4 +1,11 @@
 {
-  "day": 1,
-  "history": []
+  "day": 2,
+  "history": [
+    {
+      "day": 1,
+      "title": "Project scaffolding and repo structure",
+      "commit_message": "feat(scaffold): project scaffolding and repo structure for Day 1\n\n- README with business framing, 14-day roadmap, tech stack, and layout\n- requirements.txt covering ML, interpretability, tracking, and dev tools\n- .gitignore extended with data/, models/, mlruns/, IDE, and cache dirs\n- pyproject.toml with black, ruff, and mypy configuration\n- src/ package skeleton: data, features, models, evaluation, utils\n- configs/config.yaml with paths, data splits, model defaults, and cost matrix\n- tests/conftest.py with session-scoped repo_root and config_path fixtures\n- Makefile targets: install, format, lint, test, app, clean\n- MIT LICENSE",
+      "completed_at": "2026-05-18T23:37:06.603448+00:00"
+    }
+  ]
 }

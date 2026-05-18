@@ -1,0 +1,78 @@
+project:
+  name: customer-churn-prediction
+  version: "0.1.0"
+
+random_seed: 42
+
+paths:
+  raw_data: data/raw/WA_Fn-UseC_-Telco-Customer-Churn.csv
+  processed_data: data/processed/
+  models: models/
+  mlruns: mlruns/
+  reports: reports/
+
+data:
+  target_column: Churn
+  id_column: customerID
+  test_size: 0.2
+  val_size: 0.1
+
+features:
+  numeric:
+    - tenure
+    - MonthlyCharges
+    - TotalCharges
+  categorical:
+    - gender
+    - Partner
+    - Dependents
+    - PhoneService
+    - MultipleLines
+    - InternetService
+    - OnlineSecurity
+    - OnlineBackup
+    - DeviceProtection
+    - TechSupport
+    - StreamingTV
+    - StreamingMovies
+    - Contract
+    - PaperlessBilling
+    - PaymentMethod
+
+models:
+  default: xgboost
+  available:
+    - logistic_regression
+    - random_forest
+    - xgboost
+    - lightgbm
+
+xgboost:
+  n_estimators: 500
+  learning_rate: 0.05
+  max_depth: 6
+  subsample: 0.8
+  colsample_bytree: 0.8
+  use_label_encoder: false
+  eval_metric: logloss
+
+lightgbm:
+  n_estimators: 500
+  learning_rate: 0.05
+  num_leaves: 31
+  subsample: 0.8
+  colsample_bytree: 0.8
+
+optuna:
+  n_trials: 50
+  timeout: 600
+  direction: maximize
+  metric: roc_auc
+
+cost_matrix:
+  false_negative: 500   # cost of missing a churner (lost CLV)
+  false_positive: 50    # cost of unnecessary retention offer
+
+mlflow:
+  experiment_name: churn-prediction
+  tracking_uri: mlruns/
