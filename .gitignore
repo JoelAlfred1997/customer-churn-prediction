@@ -17,9 +17,11 @@ env/
 .ipynb_checkpoints/
 *.ipynb_checkpoints
 
-# Data and models (never committed)
-data/raw/
-data/processed/
+# Data and models (never committed — keep directory stubs only)
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
 models/
 
 # MLflow

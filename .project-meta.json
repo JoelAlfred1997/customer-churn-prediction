@@ -1,11 +1,17 @@
 {
-  "day": 2,
+  "day": 3,
   "history": [
     {
       "day": 1,
       "title": "Project scaffolding and repo structure",
       "commit_message": "feat(scaffold): project scaffolding and repo structure for Day 1\n\n- README with business framing, 14-day roadmap, tech stack, and layout\n- requirements.txt covering ML, interpretability, tracking, and dev tools\n- .gitignore extended with data/, models/, mlruns/, IDE, and cache dirs\n- pyproject.toml with black, ruff, and mypy configuration\n- src/ package skeleton: data, features, models, evaluation, utils\n- configs/config.yaml with paths, data splits, model defaults, and cost matrix\n- tests/conftest.py with session-scoped repo_root and config_path fixtures\n- Makefile targets: install, format, lint, test, app, clean\n- MIT LICENSE",
       "completed_at": "2026-05-18T23:37:06.603448+00:00"
+    },
+    {
+      "day": 2,
+      "title": "Data acquisition and schema validation",
+      "commit_message": "feat(data): add acquisition pipeline, pydantic schema, and validation\n\n- src/data/load.py: download_telco_data() with multi-URL fallback and\n  idempotent skip; load_raw() forces TotalCharges as str to preserve\n  blank-string rows\n- src/data/schema.py: TelcoCustomerRaw pydantic model with field\n  validators; EXPECTED_COLUMNS and allowed-value frozensets for all\n  categoricals\n- src/data/validate.py: validate_dataframe() checks column presence,\n  dtypes, nulls, numeric ranges, and categorical cardinality; returns\n  ValidationResult with .is_valid/.raise_on_error()\n- data/README.md: dataset description, column reference table, source,\n  license, and three download options\n- configs/config.yaml: add download_urls list, n_rows/n_cols_expected,\n  and raw_dir path\n- .gitignore: switch data/raw/ and data/processed/ to glob patterns so\n  .gitkeep stubs are tracked\n- requirements.txt: pin requests>=2.32 as an explicit dependency",
+      "completed_at": "2026-05-19T00:02:20.562079+00:00"
     }
   ]
 }

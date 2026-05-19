@@ -6,6 +6,7 @@ random_seed: 42
 
 paths:
   raw_data: data/raw/WA_Fn-UseC_-Telco-Customer-Churn.csv
+  raw_dir: data/raw/
   processed_data: data/processed/
   models: models/
   mlruns: mlruns/
@@ -16,6 +17,14 @@ data:
   id_column: customerID
   test_size: 0.2
   val_size: 0.1
+  # Public mirrors tried in order by download_telco_data()
+  download_urls:
+    - "https://raw.githubusercontent.com/IBM/telco-customer-churn-on-icp4d/master/data/Telco-Customer-Churn.csv"
+    - "https://raw.githubusercontent.com/IBM/invoke-wml-using-cognos-custom-control-api/master/assets/WA_Fn-UseC_-Telco-Customer-Churn.csv"
+  # Kaggle CLI alternative (requires kaggle.json credentials):
+  #   kaggle datasets download -d blastchar/telco-customer-churn --unzip
+  n_rows_expected: 7043
+  n_cols_expected: 21
 
 features:
   numeric:
