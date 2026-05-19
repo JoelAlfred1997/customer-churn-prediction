@@ -1,5 +1,5 @@
 {
-  "day": 3,
+  "day": 4,
   "history": [
     {
       "day": 1,
@@ -12,6 +12,12 @@
       "title": "Data acquisition and schema validation",
       "commit_message": "feat(data): add acquisition pipeline, pydantic schema, and validation\n\n- src/data/load.py: download_telco_data() with multi-URL fallback and\n  idempotent skip; load_raw() forces TotalCharges as str to preserve\n  blank-string rows\n- src/data/schema.py: TelcoCustomerRaw pydantic model with field\n  validators; EXPECTED_COLUMNS and allowed-value frozensets for all\n  categoricals\n- src/data/validate.py: validate_dataframe() checks column presence,\n  dtypes, nulls, numeric ranges, and categorical cardinality; returns\n  ValidationResult with .is_valid/.raise_on_error()\n- data/README.md: dataset description, column reference table, source,\n  license, and three download options\n- configs/config.yaml: add download_urls list, n_rows/n_cols_expected,\n  and raw_dir path\n- .gitignore: switch data/raw/ and data/processed/ to glob patterns so\n  .gitkeep stubs are tracked\n- requirements.txt: pin requests>=2.32 as an explicit dependency",
       "completed_at": "2026-05-19T00:02:20.562079+00:00"
+    },
+    {
+      "day": 3,
+      "title": "EDA Part 1 \u2014 data quality and distributions",
+      "commit_message": "feat(eda): add data quality notebook and plotting utilities",
+      "completed_at": "2026-05-19T00:25:17.465914+00:00"
     }
   ]
 }
