@@ -1,5 +1,5 @@
 {
-  "day": 4,
+  "day": 5,
   "history": [
     {
       "day": 1,
@@ -18,6 +18,12 @@
       "title": "EDA Part 1 \u2014 data quality and distributions",
       "commit_message": "feat(eda): add data quality notebook and plotting utilities",
       "completed_at": "2026-05-19T00:25:17.465914+00:00"
+    },
+    {
+      "day": 4,
+      "title": "EDA Part 2 \u2014 churn drivers and segments",
+      "commit_message": "feat(eda): add churn driver analysis, MI ranking, and eda helpers",
+      "completed_at": "2026-05-19T11:17:38.452631+00:00"
     }
   ]
 }
