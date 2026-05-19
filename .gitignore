@@ -1,11 +1,50 @@
+# Python
 __pycache__/
 *.py[cod]
 *.egg-info/
 dist/
 build/
+*.so
+.eggs/
+
+# Environments
 .env
 .venv
 venv/
-.DS_Store
-*.log
+env/
+
+# Jupyter
 .ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Data and models (never committed — keep directory stubs only)
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+models/
+
+# MLflow
+mlruns/
+mlartifacts/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# mypy
+.mypy_cache/
+
+# pytest
+.pytest_cache/
+.coverage
+htmlcov/
