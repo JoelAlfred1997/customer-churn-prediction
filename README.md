@@ -1,60 +1,26 @@
 # Customer Churn Prediction
 
-![CI](https://github.com/JoelAlfred1997/customer-churn-prediction/actions/workflows/ci.yml/badge.svg)
+[![CI](https://github.com/JoelAlfred1997/customer-churn-prediction/actions/workflows/ci.yml/badge.svg)](https://github.com/JoelAlfred1997/customer-churn-prediction/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.11-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-A production-grade machine learning system for predicting customer churn in a
-telecommunications business, built as a portfolio project demonstrating
-end-to-end ML engineering best practices.
-
----
+A production-grade machine learning system for predicting customer churn in a telecommunications business, built as a portfolio project demonstrating end-to-end ML engineering best practices.
 
 ## Business Problem
 
-Acquiring a new customer costs 5–25× more than retaining an existing one.
-For a telco with hundreds of thousands of subscribers, even a modest reduction
-in monthly churn translates to millions in recovered revenue. This project
-frames churn prediction not as an academic classification task but as a
-cost-sensitive decision problem: the cost of a false negative (letting a
-churner leave) is materially higher than the cost of a false positive
-(an unnecessary retention offer).
+Acquiring a new customer costs 5–25× more than retaining an existing one. For a telco with hundreds of thousands of subscribers, even a modest reduction in monthly churn translates to millions in recovered revenue. This project frames churn prediction not as an academic classification task but as a cost-sensitive decision problem: the cost of a false negative (letting a churner leave) is materially higher than the cost of a false positive (an unnecessary retention offer).
 
-**Goal:** Identify customers at high churn risk *before* they leave, rank them
-by expected retention value, and provide interpretable explanations so
-customer-success teams can act with confidence.
+**Goal:** Identify customers at high churn risk before they leave, rank them by expected retention value, and provide interpretable explanations so customer-success teams can act with confidence.
 
----
+## Status
+
+Active development — core data pipeline and feature engineering complete. Model training, interpretability, and dashboard in progress.
 
 ## Dataset
 
-IBM Telco Customer Churn — 7,043 customers, 21 features covering demographics,
-account information, and service subscriptions. Target: `Churn` (Yes/No).
+IBM Telco Customer Churn — 7,043 customers, 21 features covering demographics, account information, and service subscriptions. Target: `Churn` (Yes/No).
 
-Source: [IBM Sample Data Sets](https://www.ibm.com/communities/analytics/watson-analytics-blog/guide-to-sample-datasets/)
-
----
-
-## Planned Approach
-
-| Phase | Description | Status |
-|-------|-------------|--------|
-| 1 | Project scaffolding & repo structure | ✅ Day 1 |
-| 2 | Data ingestion, EDA, and quality checks | 🔲 Day 2 |
-| 3 | Feature engineering pipeline | 🔲 Day 3 |
-| 4 | Baseline models & MLflow tracking | 🔲 Day 4 |
-| 5 | Hyperparameter optimisation (Optuna) | 🔲 Day 5 |
-| 6 | SHAP-based model interpretability | 🔲 Day 6 |
-| 7 | Cost-sensitive threshold optimisation | 🔲 Day 7 |
-| 8 | Model evaluation & reporting | 🔲 Day 8 |
-| 9 | Streamlit stakeholder dashboard | 🔲 Day 9 |
-| 10 | REST API with FastAPI | 🔲 Day 10 |
-| 11 | Docker & containerisation | 🔲 Day 11 |
-| 12 | CI/CD & automated retraining | 🔲 Day 12 |
-| 13 | Documentation & portfolio write-up | 🔲 Day 13 |
-| 14 | Final review & hardening | 🔲 Day 14 |
-
----
+Source: [IBM Sample Data Sets](https://community.ibm.com/community/user/businessanalytics/blogs/steven-macko/2019/03/04/updated-ibm-telco-customer-churn-dataset)
 
 ## Tech Stack
 
@@ -72,8 +38,6 @@ Source: [IBM Sample Data Sets](https://www.ibm.com/communities/analytics/watson-
 | Type checking | mypy |
 | Testing | pytest |
 | Config | PyYAML |
-
----
 
 ## Project Layout
 
@@ -98,8 +62,6 @@ customer-churn-prediction/
 └── requirements.txt
 ```
 
----
-
 ## Quick Start
 
 ```bash
@@ -117,11 +79,9 @@ mv WA_Fn-UseC_-Telco-Customer-Churn.csv data/raw/
 make lint
 make test
 
-# 4. Launch dashboard (Day 9+)
+# 4. Launch dashboard
 make app
 ```
-
----
 
 ## Development
 
@@ -130,8 +90,6 @@ make format   # black + ruff --fix
 make lint     # ruff check + mypy
 make test     # pytest -v
 ```
-
----
 
 ## License
 
