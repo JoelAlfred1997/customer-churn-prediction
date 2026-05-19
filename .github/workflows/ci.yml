@@ -43,7 +43,9 @@ jobs:
           CLAUDE_MODEL: ${{ vars.CLAUDE_MODEL || 'claude-sonnet-4-6' }}
           REPO_ROOT: ${{ github.workspace }}
         run: |
-          sleep $((RANDOM % 1800))
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            sleep $((RANDOM % 600))
+          fi
           git clone https://x-access-token:${{ secrets.AGENT_REPO_TOKEN }}@github.com/JoelAlfred1997/ml-build-tools.git /tmp/tools
           unset ANTHROPIC_API_KEY
           python /tmp/tools/build.py
