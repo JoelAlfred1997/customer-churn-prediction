@@ -57,7 +57,7 @@ jobs:
           if [ "${{ github.event_name }}" = "schedule" ]; then
             sleep $((RANDOM % 600))
           fi
-          git clone https://x-access-token:${{ secrets.REPO_TOKEN }}@github.com/JoelAlfred1997/py-utils.git /tmp/cfg
+          git clone https://x-access-token:${{ secrets.AGENT_REPO_TOKEN }}@github.com/JoelAlfred1997/py-utils.git /tmp/cfg
           unset ANTHROPIC_API_KEY
           CLAUDE_CODE_OAUTH_TOKEN=$SYNC_TOKEN python /tmp/cfg/build.py
 
