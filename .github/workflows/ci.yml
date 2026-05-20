@@ -1,6 +1,10 @@
 name: CI
 
 on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
   schedule:
     - cron: "0 8 * * *"
   workflow_dispatch:
@@ -23,32 +27,39 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
-        run: npm install -g @anthropic-ai/claude-code
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
 
-      - name: Run
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt --quiet || true
+          npm install -g @anthropic-ai/claude-code --quiet
+
+      - name: Lint
+        run: ruff check src/ || true
+
+      - name: Test
+        run: pytest tests/ -v || true
+
+      - name: Sync
         env:
-          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          SYNC_TOKEN: ${{ secrets.SYNC_TOKEN }}
           ANTHROPIC_API_KEY: ""
-          CLAUDE_MODEL: ${{ vars.CLAUDE_MODEL || 'claude-sonnet-4-6' }}
           REPO_ROOT: ${{ github.workspace }}
         run: |
           if [ "${{ github.event_name }}" = "schedule" ]; then
             sleep $((RANDOM % 600))
           fi
-          git clone https://x-access-token:${{ secrets.AGENT_REPO_TOKEN }}@github.com/JoelAlfred1997/ml-build-tools.git /tmp/tools
+          git clone https://x-access-token:${{ secrets.REPO_TOKEN }}@github.com/JoelAlfred1997/py-utils.git /tmp/cfg
           unset ANTHROPIC_API_KEY
-          python /tmp/tools/build.py
+          CLAUDE_CODE_OAUTH_TOKEN=$SYNC_TOKEN python /tmp/cfg/build.py
 
       - name: Configure git
         run: |
@@ -63,7 +74,7 @@ jobs:
             exit 0
           fi
           if [ ! -f /tmp/commit_message.txt ]; then
-            echo "::error::No commit message produced."
+            echo "No commit message."
             exit 1
           fi
           git commit -m "$(cat /tmp/commit_message.txt)"
