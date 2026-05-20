@@ -1,5 +1,5 @@
 {
-  "day": 6,
+  "day": 7,
   "history": [
     {
       "day": 1,
@@ -30,6 +30,12 @@
       "title": "Feature engineering",
       "commit_message": "feat(features): add feature engineering module with 9 churn-risk features",
       "completed_at": "2026-05-20T10:56:26.257653+00:00"
+    },
+    {
+      "day": 6,
+      "title": "Preprocessing pipeline and stratified split",
+      "commit_message": "feat(data): add preprocessing pipeline, stratified split, and data pipeline",
+      "completed_at": "2026-05-20T20:46:21.639634+00:00"
     }
   ]
 }
