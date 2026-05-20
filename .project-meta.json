@@ -1,5 +1,5 @@
 {
-  "day": 7,
+  "day": 8,
   "history": [
     {
       "day": 1,
@@ -36,6 +36,12 @@
       "title": "Preprocessing pipeline and stratified split",
       "commit_message": "feat(data): add preprocessing pipeline, stratified split, and data pipeline",
       "completed_at": "2026-05-20T20:46:21.639634+00:00"
+    },
+    {
+      "day": 7,
+      "title": "Baseline models with cross-validation and MLflow",
+      "commit_message": "feat(models): add baseline models, CV, and MLflow tracking",
+      "completed_at": "2026-05-20T21:05:58.695706+00:00"
     }
   ]
 }

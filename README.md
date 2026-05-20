@@ -14,7 +14,28 @@ Acquiring a new customer costs 5–25× more than retaining an existing one. For
 
 ## Status
 
-Active development — core data pipeline and feature engineering complete. Model training, interpretability, and dashboard in progress.
+Active development — data pipeline, feature engineering, and baseline models complete. Hyperparameter tuning, SHAP interpretability, and dashboard in progress.
+
+## Results so far
+
+Baseline models trained with stratified 5-fold CV on the train+validation split
+(80 % of data). The test set is held out for final evaluation.
+
+| Model | CV AUC | CV F1 | CV Recall | Notes |
+|---|---|---|---|---|
+| Logistic Regression | 0.843 ± 0.011 | 0.617 ± 0.018 | 0.778 ± 0.024 | L2, class_weight=balanced |
+| Decision Tree | 0.726 ± 0.019 | 0.568 ± 0.024 | 0.706 ± 0.031 | max_depth=5, class_weight=balanced |
+
+> **Target:** any more complex model must exceed the LR CV AUC by at least 0.01
+> to justify the added complexity.
+
+Key LR interpretability findings (top coefficients):
+- **Churn drivers**: electronic check payment, month-to-month contract, fibre-optic
+  internet without add-on services
+- **Retention drivers**: two-year contract, autopay flag, long tenure with
+  multiple service subscriptions
+
+Run `python scripts/train_baselines.py` to reproduce and log results to MLflow.
 
 ## Dataset
 
