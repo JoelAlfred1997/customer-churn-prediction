@@ -1,5 +1,5 @@
 {
-  "day": 10,
+  "day": 11,
   "history": [
     {
       "day": 1,
@@ -54,6 +54,12 @@
       "title": "Hyperparameter optimisation with Optuna",
       "commit_message": "feat(models): add Optuna tuning, src/models package, and tuning notebook",
       "completed_at": "2026-05-21T11:31:31.715871+00:00"
+    },
+    {
+      "day": 10,
+      "title": "Class imbalance and cost-sensitive threshold optimisation",
+      "commit_message": "feat(models): add imbalance strategies, cost-sensitive threshold, and notebook",
+      "completed_at": "2026-05-22T11:04:38.280496+00:00"
     }
   ]
 }
