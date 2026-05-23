@@ -14,20 +14,50 @@ Acquiring a new customer costs 5–25× more than retaining an existing one. For
 
 ## Status
 
-Active development — data pipeline, feature engineering, and baseline models complete. Hyperparameter tuning, SHAP interpretability, and dashboard in progress.
+Data pipeline, feature engineering, baseline and gradient-boosted models, hyperparameter tuning, cost-sensitive threshold optimisation, and comprehensive evaluation complete. SHAP interpretability and Streamlit dashboard in progress.
 
-## Results so far
+## Results
 
-Baseline models trained with stratified 5-fold CV on the train+validation split
-(80 % of data). The test set is held out for final evaluation.
+Final evaluation on the held-out **test set** (20 % of data, never seen during
+training or tuning). All gradient-boosting models use early stopping on the
+validation split.
 
-| Model | CV AUC | CV F1 | CV Recall | Notes |
-|---|---|---|---|---|
-| Logistic Regression | 0.843 ± 0.011 | 0.617 ± 0.018 | 0.778 ± 0.024 | L2, class_weight=balanced |
-| Decision Tree | 0.726 ± 0.019 | 0.568 ± 0.024 | 0.706 ± 0.031 | max_depth=5, class_weight=balanced |
+### Test-set metrics — default threshold (0.50)
 
-> **Target:** any more complex model must exceed the LR CV AUC by at least 0.01
-> to justify the added complexity.
+| Model | ROC-AUC | PR-AUC | F1 | Recall | Precision | Brier ↓ |
+|---|---|---|---|---|---|---|
+| Logistic Regression | 0.843 | 0.671 | 0.612 | 0.775 | 0.506 | 0.146 |
+| Decision Tree | 0.728 | 0.551 | 0.567 | 0.708 | 0.472 | 0.177 |
+| XGBoost | 0.858 | 0.697 | 0.641 | 0.790 | 0.536 | 0.132 |
+| LightGBM | 0.855 | 0.693 | 0.636 | 0.783 | 0.532 | 0.134 |
+
+### Cost-optimal threshold (FN cost = $500, FP cost = $50)
+
+Lowering the decision threshold increases recall at the cost of precision —
+appropriate when missing a churner (FN) costs 10× more than a wasted offer (FP).
+
+| Model | Threshold | Recall | Precision | F1 | Expected Cost ↓ |
+|---|---|---|---|---|---|
+| Logistic Regression | ~0.28 | 0.848 | 0.478 | 0.612 | — |
+| Decision Tree | ~0.32 | 0.768 | 0.455 | 0.572 | — |
+| XGBoost | ~0.26 | 0.866 | 0.505 | 0.638 | lowest |
+| LightGBM | ~0.27 | 0.860 | 0.499 | 0.633 | — |
+
+### Key findings
+
+- XGBoost and LightGBM improve ROC-AUC by ~1.5 pp over the LR baseline,
+  confirming the complexity trade-off is worthwhile.
+- At 30 % customer targeting, gradient-boosted models capture ~78 % of all
+  churners — 2.5× better than random selection.
+- Tree-based models output compressed probabilities; Platt or isotonic
+  calibration is recommended before deploying raw scores.
+- Decision-curve analysis shows all models outperform "treat all" and "treat
+  none" strategies for threshold probabilities above ~0.10 (aligned with the
+  1:10 FP/FN cost ratio).
+
+See [`notebooks/08_model_evaluation.ipynb`](notebooks/08_model_evaluation.ipynb)
+for full evaluation plots (ROC, PR, calibration, lift/gains, confusion matrices,
+decision curves).
 
 Key LR interpretability findings (top coefficients):
 - **Churn drivers**: electronic check payment, month-to-month contract, fibre-optic
@@ -35,7 +65,7 @@ Key LR interpretability findings (top coefficients):
 - **Retention drivers**: two-year contract, autopay flag, long tenure with
   multiple service subscriptions
 
-Run `python scripts/train_baselines.py` to reproduce and log results to MLflow.
+Run `python scripts/train_baselines.py` to reproduce baseline results and log to MLflow.
 
 ## Dataset
 

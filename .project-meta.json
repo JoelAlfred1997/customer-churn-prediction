@@ -1,5 +1,5 @@
 {
-  "day": 11,
+  "day": 12,
   "history": [
     {
       "day": 1,
@@ -60,6 +60,12 @@
       "title": "Class imbalance and cost-sensitive threshold optimisation",
       "commit_message": "feat(models): add imbalance strategies, cost-sensitive threshold, and notebook",
       "completed_at": "2026-05-22T11:04:38.280496+00:00"
+    },
+    {
+      "day": 11,
+      "title": "Comprehensive model evaluation",
+      "commit_message": "feat(evaluation): add metrics module, eval plots, and model comparison notebook",
+      "completed_at": "2026-05-23T10:02:51.725127+00:00"
     }
   ]
 }
