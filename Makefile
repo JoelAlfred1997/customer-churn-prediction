@@ -16,7 +16,7 @@ test:
 	pytest tests/ -v --cov=src --cov-report=term-missing
 
 app:
-	streamlit run app.py
+	streamlit run app/streamlit_app.py
 
 clean:
 	find . -type d -name __pycache__ -exec rm -rf {} +

@@ -14,7 +14,7 @@ Acquiring a new customer costs 5–25× more than retaining an existing one. For
 
 ## Status
 
-Data pipeline, feature engineering, baseline and gradient-boosted models, hyperparameter tuning, cost-sensitive threshold optimisation, and comprehensive evaluation complete. SHAP interpretability and Streamlit dashboard in progress.
+Data pipeline, feature engineering, baseline and gradient-boosted models, hyperparameter tuning, cost-sensitive threshold optimisation, comprehensive evaluation, SHAP interpretability, and Streamlit stakeholder dashboard — all complete.
 
 ## Results
 
@@ -94,20 +94,26 @@ Source: [IBM Sample Data Sets](https://community.ibm.com/community/user/business
 
 ```
 customer-churn-prediction/
-├── configs/           # YAML configuration files
+├── app/
+│   ├── streamlit_app.py      # Dashboard entry point
+│   ├── utils.py              # Cached model/data loading helpers
+│   └── components/
+│       ├── predict.py        # Single-customer prediction + SHAP
+│       ├── cohort.py         # Cohort risk analysis with filters
+│       └── performance.py    # ROC, PR, calibration, cost curves
+├── configs/                  # YAML configuration files
 ├── data/
-│   ├── raw/           # Immutable source data (not tracked)
-│   └── processed/     # Feature-engineered datasets (not tracked)
-├── models/            # Serialised model artefacts (not tracked)
-├── notebooks/         # Exploratory analysis (not run in CI)
+│   ├── raw/                  # Immutable source data (not tracked)
+│   └── processed/            # Feature-engineered datasets (not tracked)
+├── models/                   # Serialised model artefacts (not tracked)
+├── notebooks/                # Exploratory analysis (not run in CI)
 ├── src/
-│   ├── data/          # Ingestion and validation
-│   ├── features/      # Feature engineering
-│   ├── models/        # Training and inference
-│   ├── evaluation/    # Metrics and reporting
-│   └── utils/         # Shared utilities
-├── tests/             # pytest test suite
-├── app.py             # Streamlit dashboard entry point
+│   ├── data/                 # Ingestion and validation
+│   ├── features/             # Feature engineering
+│   ├── models/               # Training and inference
+│   ├── evaluation/           # Metrics and reporting
+│   └── utils/                # Shared utilities
+├── tests/                    # pytest test suite
 ├── Makefile
 ├── pyproject.toml
 └── requirements.txt
@@ -126,13 +132,45 @@ make install
 mkdir -p data/raw
 mv WA_Fn-UseC_-Telco-Customer-Churn.csv data/raw/
 
-# 3. Lint, format, test
+# 3. Train models
+python scripts/train_gbm.py
+
+# 4. Lint, format, test
 make lint
 make test
 
-# 4. Launch dashboard
+# 5. Launch dashboard
 make app
 ```
+
+## Dashboard
+
+The Streamlit dashboard (`app/streamlit_app.py`) has three tabs.
+
+> **Screenshot placeholder** — run `make app` and open the URL printed by Streamlit.
+
+### Predict tab
+
+Enter any customer profile using the input widgets. Hit **Predict churn risk**
+to see the predicted churn probability, a risk badge, and a SHAP waterfall plot
+explaining which features drove the prediction above or below the base rate.
+
+### Cohort Analysis tab
+
+Filter the held-out test set by Contract type, Internet Service, Payment Method,
+and Tenure Bucket. The tab shows:
+- KPI cards (segment size, high-risk count, average probability, actual churn rate)
+- Churn probability distribution histogram
+- Average risk by Contract, Payment Method, and Internet Service
+- Top-N highest-risk customer table
+
+### Model Performance tab
+
+Comparison across all trained models:
+- Metrics table (ROC-AUC, PR-AUC, F1, Recall, Precision, Brier) at a user-adjustable threshold
+- ROC curves and Precision-Recall curves side by side
+- Calibration (reliability) diagram
+- Cost curve showing expected business cost across thresholds with configurable FN/FP cost ratio
 
 ## Development
 
